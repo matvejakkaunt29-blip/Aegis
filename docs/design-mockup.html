@@ -1,61 +1,124 @@
 <!DOCTYPE html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Muse Mobile — макет</title>
+<title>Muse Mobile — точный макет интерфейса v2</title>
 <style>
-body{margin:0;background:#07090f;color:#E6EDF3;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-h1{font-size:20px;text-align:center;margin:18px 10px 4px} p.sub{text-align:center;color:#8b95a7;margin:0 16px 18px;font-size:14px}
-.wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:0 16px 28px}
-.phone{width:300px;background:#0B0E14;border:2px solid #232a38;border-radius:32px;padding:10px 10px 14px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.screen{background:#0B0E14;border-radius:22px;overflow:hidden;min-height:540px;display:flex;flex-direction:column}
-.top{padding:14px 14px 8px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800} .pill{background:#151A24;border:1px solid #232a38;border-radius:20px;padding:6px 10px;font-size:12px;color:#00E5FF}
-.cap{font-size:13px;color:#8b95a7;text-align:center;margin:10px 0 0}
+*{box-sizing:border-box} body{margin:0;background:#07090f;color:#E6EDF3;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+h1{font-size:22px;text-align:center;margin:20px 10px 4px} .sub{text-align:center;color:#8b95a7;margin:0 16px 6px;font-size:14px;line-height:1.5}
+.legend{max-width:1020px;margin:10px auto 18px;padding:12px 16px;background:#10151f;border:1px solid #232a38;border-radius:14px;color:#c6cdd9;font-size:13px;line-height:1.6}
+.wrap{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;padding:0 16px 30px}
+.phone{width:310px;background:#0B0E14;border:2px solid #2a3347;border-radius:36px;padding:10px 10px 14px;box-shadow:0 12px 32px rgba(0,0,0,.55)}
+.status{display:flex;justify-content:space-between;padding:6px 14px 4px;font-size:11px;color:#8b95a7}
+.screen{background:#0B0E14;border-radius:24px;overflow:hidden;min-height:600px;display:flex;flex-direction:column}
+.top{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.logo{font-weight:800;font-size:17px} .pill{background:#151A24;border:1px solid #232a38;border-radius:20px;padding:6px 10px;font-size:12px;color:#00E5FF;white-space:nowrap}
+.cap{font-size:13px;color:#8b95a7;text-align:center;margin:12px 0 0;line-height:1.4}
 .btn{background:#00E5FF;color:#001018;border:0;border-radius:14px;padding:13px;font-weight:700;width:100%;margin-top:12px}
 .btn2{background:#151A24;color:#E6EDF3;border:1px solid #232a38;border-radius:14px;padding:12px;width:100%;margin-top:8px}
-.card{background:#151A24;border:1px solid #232a38;border-radius:16px;padding:12px;margin:8px 12px}
-.card b{display:block} .card span{color:#8b95a7;font-size:12px}
-.msg{margin:8px 12px;padding:10px 12px;border-radius:16px;max-width:82%;font-size:14px;line-height:1.4}
-.me{margin-left:auto;background:#00E5FF;color:#001018} .ai{background:#151A24;border:1px solid #232a38}
-.input{margin:auto 12px 6px;display:flex;gap:8px} .input div{flex:1;background:#151A24;border:1px solid #232a38;border-radius:20px;padding:10px 12px;color:#8b95a7}
-.send{width:40px;height:40px;border-radius:50%;background:#FF2E9A;color:#fff;display:grid;place-items:center;font-weight:800}
-.nav{margin-top:auto;display:flex;justify-content:space-around;padding:12px 6px 4px;border-top:1px solid #232a38;font-size:12px;color:#8b95a7}
-.nav b{color:#00E5FF} .acc{display:flex;align-items:center;gap:10px} .ava{width:36px;height:36px;border-radius:50%;background:#FF2E9A;display:grid;place-items:center;font-weight:800}
-.ava2{background:#00A8FF} .tag{font-size:11px;background:#1d2b1f;color:#7CFC9A;border-radius:10px;padding:3px 7px}
-.note{max-width:900px;margin:0 auto;padding:0 16px 24px;color:#8b95a7;font-size:13px;line-height:1.5}
+.btnP{background:#FF2E9A;color:#fff;border:0;border-radius:14px;padding:12px;font-weight:700;width:100%}
+.card{background:#151A24;border:1px solid #232a38;border-radius:16px;padding:12px;margin:7px 12px}
+.card b{display:block} .card span{color:#8b95a7;font-size:12px;line-height:1.4}
+.chip{display:inline-block;background:#1a2333;border:1px solid #2a3347;border-radius:20px;padding:5px 10px;font-size:12px;margin:3px 3px 0 0;color:#c6cdd9}
+.msg{margin:7px 12px;padding:10px 12px;border-radius:16px;max-width:84%;font-size:14px;line-height:1.45}
+.me{margin-left:auto;background:#00E5FF;color:#001018;border-bottom-right-radius:4px} .ai{background:#151A24;border:1px solid #232a38;border-bottom-left-radius:4px}
+.time{font-size:11px;color:#8b95a7;margin:0 12px 4px} .time.r{text-align:right}
+.input{margin:auto 12px 6px;display:flex;gap:8px;align-items:center} .input .f{flex:1;background:#151A24;border:1px solid #232a38;border-radius:22px;padding:11px 13px;color:#8b95a7}
+.send{width:42px;height:42px;border-radius:50%;background:#FF2E9A;color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.nav{margin-top:auto;display:flex;justify-content:space-around;padding:12px 6px 6px;border-top:1px solid #232a38;font-size:11px;color:#8b95a7;text-align:center}
+.nav b{color:#00E5FF} .acc{display:flex;align-items:center;gap:10px} .ava{width:38px;height:38px;border-radius:50%;background:#FF2E9A;display:grid;place-items:center;font-weight:800;flex:none}
+.ava2{background:#00A8FF} .ava3{background:#7C5CFF} .tag{font-size:11px;background:#1d2b1f;color:#7CFC9A;border-radius:10px;padding:3px 7px;margin-left:auto}
+.swatch{display:flex;gap:8px;margin-top:8px} .sw{width:28px;height:28px;border-radius:8px;border:1px solid #fff3}
+.sheet{background:#1a2130;border-top:1px solid #2a3347;border-radius:18px 18px 0 0;padding:12px;margin-top:auto}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 4px;border-bottom:1px solid #232a38;font-size:14px}
+.tgl{width:44px;height:26px;background:#00E5FF;border-radius:20px;position:relative;flex:none} .tgl:after{content:"";position:absolute;right:3px;top:3px;width:20px;height:20px;background:#fff;border-radius:50%}
+.tgl.off{background:#2a3347} .tgl.off:after{left:3px;right:auto}
+.search{margin:0 12px;background:#151A24;border:1px solid #232a38;border-radius:20px;padding:10px 13px;color:#8b95a7;font-size:14px}
+h2{margin:16px 14px 4px;font-size:20px} .desc{margin:0 14px;color:#8b95a7;font-size:13px;line-height:1.5}
+.note{max-width:1020px;margin:0 auto;padding:0 16px 28px;color:#8b95a7;font-size:13px;line-height:1.6}
 </style></head><body>
-<h1>Muse Mobile — макет дизайна</h1>
-<p class="sub">Тёмная тема по умолчанию, нижняя навигация, один экран — одна задача. Аккаунты переключаются вверху, без выхода из приложения.</p>
+<h1>Muse Mobile — точный макет интерфейса, v2</h1>
+<p class="sub">Как приложение будет выглядеть на телефоне, экран за экраном. Тёмная тема по умолчанию, акцент бирюзовый, отправка — розовая.</p>
+<div class="legend"><b style="color:#fff">Как читать макет:</b> фон #0B0E14, карточки #151A24, акцент #00E5FF, действие отправки #FF2E9A. Шрифт системный, заголовки 20px, текст 14px, подписи 12px. Снизу всегда 4 раздела: Чаты / Инструменты / Модули / Настройки. Вверху чата — провайдер Muse и текущий аккаунт, переключение без выхода.</div>
 <div class="wrap">
-<div class="phone"><div class="screen"><div class="top"><div class="logo">✦ Muse Mobile</div><div class="pill">Muse по умолчанию</div></div>
-<div style="padding:20px 14px 0"><h2 style="margin:0">С возвращением</h2><p style="color:#8b95a7;font-size:14px">Выбери аккаунт или добавь новый. Пароль вводится только на странице Muse.</p></div>
-<div class="card"><div class="acc"><div class="ava">Э</div><div><b>Ethan — основной</b><br><span>ethan@muse</span></div><span class="tag" style="margin-left:auto">активный</span></div></div>
-<div class="card"><div class="acc"><div class="ava ava2">А</div><div><b>Второй аккаунт</b><br><span>work@muse</span></div><span style="margin-left:auto;color:#00E5FF">→</span></div></div>
-<div style="padding:0 12px"><button class="btn">Войти в Muse-аккаунт</button><button class="btn2">+ Добавить аккаунт</button></div>
-<p class="cap">1 — Вход / выбор аккаунта</p></div></div>
 
-<div class="phone"><div class="screen"><div class="top"><div class="logo">Чаты</div><div class="pill">Ethan ▾</div></div>
-<div class="card"><b>Идея для приложения</b><span>Тёмная неоновая тема… • Muse • 2 мин</span></div>
-<div class="card"><b>Плагин заметок</b><span>Сделай модуль заметок… • Muse • вчера</span></div>
-<div class="card"><b>Новый чат</b><span>Начни с Muse, без настроек</span></div>
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div class="logo">✦ Muse Mobile</div><div class="pill">Muse по умолчанию</div></div>
+<h2>С возвращением</h2><p class="desc">Войди один раз — дальше Muse уже выбран, ключи и адреса вводить не надо. Пароль вводится только на странице Muse.</p>
+<div class="card"><div class="acc"><div class="ava">Э</div><div><b>Ethan — основной</b><br><span>ethan@muse • активный</span></div><span class="tag">активный</span></div></div>
+<div class="card"><div class="acc"><div class="ava ava2">Р</div><div><b>Рабочий</b><br><span>work@muse</span></div><span style="margin-left:auto;color:#00E5FF">→</span></div></div>
+<div style="padding:0 12px"><button class="btn">Войти в Muse-аккаунт</button><button class="btn2">+ Добавить аккаунт</button><p style="color:#8b95a7;font-size:12px;text-align:center">Токены хранятся только в телефоне, в зашифрованном виде</p></div>
+<p class="cap">1 — Вход и выбор аккаунта<br>при первом запуске</p></div></div>
+
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div class="logo">Чаты</div><div class="pill">Ethan ▾</div></div>
+<div class="search">🔍 Поиск по чатам…</div>
+<div style="padding:8px 12px 0"><span class="chip">Все</span><span class="chip">Muse</span><span class="chip">С плагинами</span></div>
+<div class="card"><b>Идея для приложения</b><span>Тёмная неоновая тема готова, применить? • Muse • 2 мин • 📎 тема</span></div>
+<div class="card"><b>Плагин заметок</b><span>Пакет собран, проверены права… • Muse • вчера</span></div>
+<div class="card"><b>Что умеет Muse на телефоне?</b><span>Файлы приложения, поиск, заметки… • Muse • вчера</span></div>
 <div style="padding:0 12px"><button class="btn">+ Новый чат</button></div>
-<div class="nav"><span><b>Чаты</b></span><span>Инструменты</span><span>Модули</span><span>Настройки</span></div>
-<p class="cap">2 — Список чатов, аккаунт переключается сверху</p></div></div>
+<div class="nav"><span><b>💬<br>Чаты</b></span><span>🛠<br>Инструменты</span><span>🧩<br>Модули</span><span>⚙<br>Настройки</span></div>
+<p class="cap">2 — Список чатов<br>поиск, фильтры, бейджи вложений</p></div></div>
 
-<div class="phone"><div class="screen"><div class="top"><div>← Чат</div><div class="pill">Muse • Ethan ▾</div></div>
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div>← Чаты</div><div class="pill">Muse • Ethan ▾</div></div>
+<div class="time">Сегодня, 9:38</div>
 <div class="msg me">Сделай тёмную неоновую тему</div>
-<div class="msg ai">Готово, вот предпросмотр темы. Применить её?<br><br><span style="color:#00E5FF">▣ Неоновая тёмная — применить</span> &nbsp; <span style="color:#8b95a7">Отклонить</span></div>
+<div class="msg ai">Готово. Вот как она будет выглядеть:<div class="swatch"><div class="sw" style="background:#0B0E14"></div><div class="sw" style="background:#151A24"></div><div class="sw" style="background:#00E5FF"></div><div class="sw" style="background:#FF2E9A"></div></div><br><span style="color:#00E5FF">Применить тему</span> &nbsp; <span style="color:#8b95a7">Отклонить</span></div>
 <div class="msg me">И добавь модуль заметок</div>
-<div class="msg ai">Пакет заметок собран, проверены права: только файлы приложения. Установить?</div>
-<div class="input"><div>Написать Muse…</div><div class="send">↑</div></div>
-<p class="cap">3 — Чат: генерация темы и плагина прямо здесь</p></div></div>
+<div class="msg ai">Пакет заметок собран.<br>Права: только файлы приложения. Больше ничего не запрашивает.<br><br><span style="color:#00E5FF">Установить плагин</span> &nbsp; <span style="color:#8b95a7">Подробнее</span></div>
+<div class="msg ai" style="color:#8b95a7">Muse печатает… ● ● ●</div>
+<div class="input"><div class="f">Написать Muse…</div><div class="send">↑</div></div>
+<p class="cap">3 — Чат<br>сообщения, карточки темы и плагина, индикатор печати</p></div></div>
 
-<div class="phone"><div class="screen"><div class="top"><div class="logo">Модули и темы</div><div class="pill">3 вкл.</div></div>
-<div class="card"><b>🎨 Неоновая тёмная</b><span>Тема • активна • сгенерирована в чате</span></div>
-<div class="card"><b>📝 Заметки</b><span>Плагин • вкл • только файлы приложения</span></div>
-<div class="card"><b>🔍 Поиск в сети</b><span>Инструмент • вкл</span></div>
-<div class="card"><b>＋ Сгенерировать в чате</b><span>Опиши модуль или тему словами</span></div>
-<div class="nav"><span>Чаты</span><span>Инструменты</span><span><b>Модули</b></span><span>Настройки</span></div>
-<p class="cap">4 — Модули / темы: вкл-выкл одним тапом, откат</p></div></div>
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div>← Чат</div><div class="pill">Muse • Ethan ▾</div></div>
+<div class="msg ai">Установка плагина «Заметки»</div>
+<div class="sheet"><b>Проверить перед установкой</b>
+<div class="row"><span>📝 Заметки, v1.0</span><span style="color:#8b95a7">из чата</span></div>
+<div class="row"><span>Доступ</span><span>только файлы приложения</span></div>
+<div class="row"><span>Доступ к другим приложениям</span><span style="color:#7CFC9A">нет</span></div>
+<div class="row"><span>Откат</span><span>одной кнопкой</span></div>
+<div style="display:flex;gap:8px;margin-top:12px"><button class="btn2" style="margin:0">Отмена</button><button class="btnP" style="margin:0">Установить</button></div></div>
+<p class="cap">4 — Диалог установки плагина<br>права видны до установки, а не после</p></div></div>
+
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div class="logo">Модули</div><div class="pill">3 вкл.</div></div>
+<div class="card"><b>🎨 Неоновая тёмная</b><span>Тема • активна • сгенерирована в чате</span><div class="swatch"><div class="sw" style="background:#0B0E14"></div><div class="sw" style="background:#00E5FF"></div><div class="sw" style="background:#FF2E9A"></div></div></div>
+<div class="card"><div style="display:flex;justify-content:space-between"><b>📝 Заметки</b><div class="tgl"></div></div><span>Плагин • вкл • файлы приложения</span></div>
+<div class="card"><div style="display:flex;justify-content:space-between"><b>🔍 Поиск в сети</b><div class="tgl"></div></div><span>Инструмент • вкл</span></div>
+<div class="card"><div style="display:flex;justify-content:space-between"><b>🧮 Калькулятор</b><div class="tgl off"></div></div><span>Инструмент • выкл</span></div>
+<div style="padding:0 12px"><button class="btn">＋ Сгенерировать в чате</button></div>
+<div class="nav"><span>💬<br>Чаты</span><span>🛠<br>Инструменты</span><span><b>🧩<br>Модули</b></span><span>⚙<br>Настройки</span></div>
+<p class="cap">5 — Модули и темы<br>переключатель вкл/выкл, откат, генерация из чата</p></div></div>
+
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div class="logo">Темы</div><div class="pill">Активна: Неоновая</div></div>
+<div class="card"><b>Неоновая тёмная</b><span>Активна • из чата</span><div class="swatch"><div class="sw" style="background:#0B0E14"></div><div class="sw" style="background:#151A24"></div><div class="sw" style="background:#00E5FF"></div><div class="sw" style="background:#FF2E9A"></div></div></div>
+<div class="card"><b>Спокойная светлая</b><span>Готовая • нажать, чтобы посмотреть</span><div class="swatch"><div class="sw" style="background:#F2F4F8"></div><div class="sw" style="background:#FFFFFF"></div><div class="sw" style="background:#2563EB"></div><div class="sw" style="background:#111827"></div></div></div>
+<div class="card"><b>Тёплая тёмная</b><span>Готовая</span><div class="swatch"><div class="sw" style="background:#1A120B"></div><div class="sw" style="background:#2A1F14"></div><div class="sw" style="background:#FFB020"></div><div class="sw" style="background:#FF6B35"></div></div></div>
+<div style="padding:0 12px"><button class="btn2">Описать свою тему в чате →</button></div>
+<div class="nav"><span>💬<br>Чаты</span><span>🛠<br>Инструменты</span><span><b>🧩<br>Модули</b></span><span>⚙<br>Настройки</span></div>
+<p class="cap">6 — Темы<br>превью палитрой, применение без перезапуска</p></div></div>
+
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div class="logo">Инструменты</div><div class="pill">Muse • Ethan</div></div>
+<div class="card"><b>📁 Файлы приложения</b><span>Читать и сохранять внутри приложения</span></div>
+<div class="card"><b>🔍 Поиск в сети</b><span>Без доступа к личным данным</span></div>
+<div class="card"><b>🌐 Открыть ссылку</b><span>В системном браузере</span></div>
+<div class="card"><b>📝 Заметки</b><span>Из установленного плагина</span></div>
+<p style="margin:8px 14px;color:#8b95a7;font-size:12px">Если инструмента не хватает — попроси в чате, он предложит плагин, а не ошибку.</p>
+<div class="nav"><span>💬<br>Чаты</span><span><b>🛠<br>Инструменты</b></span><span>🧩<br>Модули</span><span>⚙<br>Настройки</span></div>
+<p class="cap">7 — Инструменты<br>что умеет Muse прямо сейчас</p></div></div>
+
+<div class="phone"><div class="screen"><div class="status"><span>9:41</span><span>▂▄▆ ▣ ▭</span></div>
+<div class="top"><div class="logo">Настройки</div><div class="pill">Ethan ▾</div></div>
+<div class="card"><div class="acc"><div class="ava">Э</div><div><b>Ethan</b><br><span>ethan@muse • активный</span></div></div></div>
+<div class="card"><div class="acc"><div class="ava ava2">Р</div><div><b>Рабочий</b><br><span>work@muse</span></div><span style="margin-left:auto;color:#00E5FF">Переключить →</span></div></div>
+<div class="card"><div class="acc"><div class="ava ava3">+</div><div><b>Добавить аккаунт</b><br><span>Вход в Muse</span></div></div></div>
+<div class="sheet" style="margin-top:12px"><div class="row"><span>Провайдер по умолчанию</span><b>Muse</b></div><div class="row"><span>Другие провайдеры</span><span style="color:#00E5FF">Добавить →</span></div><div class="row"><span>Хранить чаты на телефоне</span><div class="tgl"></div></div><div class="row"><span>Выйти из этого аккаунта</span><span style="color:#FF6B6B">Выйти</span></div></div>
+<div class="nav"><span>💬<br>Чаты</span><span>🛠<br>Инструменты</span><span>🧩<br>Модули</span><span><b>⚙<br>Настройки</b></span></div>
+<p class="cap">8 — Настройки и аккаунты<br>переключение, добавление, выход из одного аккаунта</p></div></div>
+
 </div>
-<div class="note"><b style="color:#E6EDF3">Концепция:</b> тёмный фон #0B0E14, акцент бирюзовый #00E5FF, второй акцент розовый #FF2E9A только для действий отправки/важного. Никаких десктопных панелей: снизу 4 раздела, вверху чата — провайдер и аккаунт. Это макет, а не финальный UI из кода — цвета и шрифты потом заменяются любой темой из чата без пересборки.</div>
+<div class="note"><b style="color:#fff">Что именно нового в v2:</b> добавлены строка статуса и время, поиск и фильтры в чатах, индикатор печати, отдельный диалог проверки прав перед установкой плагина, превью тем палитрами, экран инструментов и экран настроек с переключением аккаунтов. Это всё ещё макет, а не собранный APK: в коде экраны входа и чата уже есть, остальные экраны — следующий шаг каркаса. Если какой-то экран не нравится — скажи номер, поправлю именно его, а не весь дизайн.</div>
 </body></html>
