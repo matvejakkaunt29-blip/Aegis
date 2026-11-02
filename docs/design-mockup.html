@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Muse Mobile — макет</title>
+<style>
+body{margin:0;background:#07090f;color:#E6EDF3;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+h1{font-size:20px;text-align:center;margin:18px 10px 4px} p.sub{text-align:center;color:#8b95a7;margin:0 16px 18px;font-size:14px}
+.wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:0 16px 28px}
+.phone{width:300px;background:#0B0E14;border:2px solid #232a38;border-radius:32px;padding:10px 10px 14px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.screen{background:#0B0E14;border-radius:22px;overflow:hidden;min-height:540px;display:flex;flex-direction:column}
+.top{padding:14px 14px 8px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800} .pill{background:#151A24;border:1px solid #232a38;border-radius:20px;padding:6px 10px;font-size:12px;color:#00E5FF}
+.cap{font-size:13px;color:#8b95a7;text-align:center;margin:10px 0 0}
+.btn{background:#00E5FF;color:#001018;border:0;border-radius:14px;padding:13px;font-weight:700;width:100%;margin-top:12px}
+.btn2{background:#151A24;color:#E6EDF3;border:1px solid #232a38;border-radius:14px;padding:12px;width:100%;margin-top:8px}
+.card{background:#151A24;border:1px solid #232a38;border-radius:16px;padding:12px;margin:8px 12px}
+.card b{display:block} .card span{color:#8b95a7;font-size:12px}
+.msg{margin:8px 12px;padding:10px 12px;border-radius:16px;max-width:82%;font-size:14px;line-height:1.4}
+.me{margin-left:auto;background:#00E5FF;color:#001018} .ai{background:#151A24;border:1px solid #232a38}
+.input{margin:auto 12px 6px;display:flex;gap:8px} .input div{flex:1;background:#151A24;border:1px solid #232a38;border-radius:20px;padding:10px 12px;color:#8b95a7}
+.send{width:40px;height:40px;border-radius:50%;background:#FF2E9A;color:#fff;display:grid;place-items:center;font-weight:800}
+.nav{margin-top:auto;display:flex;justify-content:space-around;padding:12px 6px 4px;border-top:1px solid #232a38;font-size:12px;color:#8b95a7}
+.nav b{color:#00E5FF} .acc{display:flex;align-items:center;gap:10px} .ava{width:36px;height:36px;border-radius:50%;background:#FF2E9A;display:grid;place-items:center;font-weight:800}
+.ava2{background:#00A8FF} .tag{font-size:11px;background:#1d2b1f;color:#7CFC9A;border-radius:10px;padding:3px 7px}
+.note{max-width:900px;margin:0 auto;padding:0 16px 24px;color:#8b95a7;font-size:13px;line-height:1.5}
+</style></head><body>
+<h1>Muse Mobile — макет дизайна</h1>
+<p class="sub">Тёмная тема по умолчанию, нижняя навигация, один экран — одна задача. Аккаунты переключаются вверху, без выхода из приложения.</p>
+<div class="wrap">
+<div class="phone"><div class="screen"><div class="top"><div class="logo">✦ Muse Mobile</div><div class="pill">Muse по умолчанию</div></div>
+<div style="padding:20px 14px 0"><h2 style="margin:0">С возвращением</h2><p style="color:#8b95a7;font-size:14px">Выбери аккаунт или добавь новый. Пароль вводится только на странице Muse.</p></div>
+<div class="card"><div class="acc"><div class="ava">Э</div><div><b>Ethan — основной</b><br><span>ethan@muse</span></div><span class="tag" style="margin-left:auto">активный</span></div></div>
+<div class="card"><div class="acc"><div class="ava ava2">А</div><div><b>Второй аккаунт</b><br><span>work@muse</span></div><span style="margin-left:auto;color:#00E5FF">→</span></div></div>
+<div style="padding:0 12px"><button class="btn">Войти в Muse-аккаунт</button><button class="btn2">+ Добавить аккаунт</button></div>
+<p class="cap">1 — Вход / выбор аккаунта</p></div></div>
+
+<div class="phone"><div class="screen"><div class="top"><div class="logo">Чаты</div><div class="pill">Ethan ▾</div></div>
+<div class="card"><b>Идея для приложения</b><span>Тёмная неоновая тема… • Muse • 2 мин</span></div>
+<div class="card"><b>Плагин заметок</b><span>Сделай модуль заметок… • Muse • вчера</span></div>
+<div class="card"><b>Новый чат</b><span>Начни с Muse, без настроек</span></div>
+<div style="padding:0 12px"><button class="btn">+ Новый чат</button></div>
+<div class="nav"><span><b>Чаты</b></span><span>Инструменты</span><span>Модули</span><span>Настройки</span></div>
+<p class="cap">2 — Список чатов, аккаунт переключается сверху</p></div></div>
+
+<div class="phone"><div class="screen"><div class="top"><div>← Чат</div><div class="pill">Muse • Ethan ▾</div></div>
+<div class="msg me">Сделай тёмную неоновую тему</div>
+<div class="msg ai">Готово, вот предпросмотр темы. Применить её?<br><br><span style="color:#00E5FF">▣ Неоновая тёмная — применить</span> &nbsp; <span style="color:#8b95a7">Отклонить</span></div>
+<div class="msg me">И добавь модуль заметок</div>
+<div class="msg ai">Пакет заметок собран, проверены права: только файлы приложения. Установить?</div>
+<div class="input"><div>Написать Muse…</div><div class="send">↑</div></div>
+<p class="cap">3 — Чат: генерация темы и плагина прямо здесь</p></div></div>
+
+<div class="phone"><div class="screen"><div class="top"><div class="logo">Модули и темы</div><div class="pill">3 вкл.</div></div>
+<div class="card"><b>🎨 Неоновая тёмная</b><span>Тема • активна • сгенерирована в чате</span></div>
+<div class="card"><b>📝 Заметки</b><span>Плагин • вкл • только файлы приложения</span></div>
+<div class="card"><b>🔍 Поиск в сети</b><span>Инструмент • вкл</span></div>
+<div class="card"><b>＋ Сгенерировать в чате</b><span>Опиши модуль или тему словами</span></div>
+<div class="nav"><span>Чаты</span><span>Инструменты</span><span><b>Модули</b></span><span>Настройки</span></div>
+<p class="cap">4 — Модули / темы: вкл-выкл одним тапом, откат</p></div></div>
+</div>
+<div class="note"><b style="color:#E6EDF3">Концепция:</b> тёмный фон #0B0E14, акцент бирюзовый #00E5FF, второй акцент розовый #FF2E9A только для действий отправки/важного. Никаких десктопных панелей: снизу 4 раздела, вверху чата — провайдер и аккаунт. Это макет, а не финальный UI из кода — цвета и шрифты потом заменяются любой темой из чата без пересборки.</div>
+</body></html>

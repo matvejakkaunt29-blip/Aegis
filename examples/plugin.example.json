@@ -1,0 +1,1 @@
+{"id":"notes-module-example","name":"Заметки","permissions":["app_files_read","app_files_write"],"tools":[{"description":"Сохранить заметку в папке приложения","name":"notes_save"},{"description":"Показать список заметок","name":"notes_list"}],"type":"plugin","ui":{"slot":"tools_tab","title":"Заметки"},"version":"1.0.0"}
