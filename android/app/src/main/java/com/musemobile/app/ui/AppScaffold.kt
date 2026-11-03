@@ -10,24 +10,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.musemobile.app.auth.MuseAccount
+import com.musemobile.app.chat.Artifact
 import com.musemobile.app.chat.ChatViewModel
+import com.musemobile.app.chat.WorkspaceViewModel
 import com.musemobile.app.ui.theme.ThemeMode
 import kotlinx.coroutines.launch
 
-enum class AppScreen { HOME, CHAT, SETTINGS }
+enum class AppScreen { HOME, CHAT, SETTINGS, ARTIFACT, PROJECTS, PLUGINS, TASKS }
 
 /**
- * Каркас фазы 1: боковой drawer + экраны.
- * Drawer (композиция из разбора): аватар + имя, новый чат,
- * «Проект», «Новый проект», «История чатов», внизу — поиск,
- * настройки и аккаунты. История в фазе 1 — заглушка-список:
- * реальные чаты хранятся per-account в ChatViewModel, а полная
- * история с поиском — задача фазы 2 вместе с артефактами.
+ * Каркас фаз 1-3: боковой drawer + экраны.
+ * Drawer: аватар, новый чат, проекты, история (реальная, фазы 2-3,
+ * фильтруется по активному аккаунту), плагины, задачи, аккаунты,
+ * настройки. Артефакт открывается отдельным экраном из чата.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScaffold(
     chatVm: ChatViewModel,
+    workspaceVm: WorkspaceViewModel,
     accounts: List<MuseAccount>,
     activeAccount: MuseAccount?,
     themeMode: ThemeMode,
@@ -38,6 +39,8 @@ fun AppScaffold(
     onLogoutAll: () -> Unit
 ) {
     var screen by remember { mutableStateOf(AppScreen.HOME) }
+    var openArtifact by remember { mutableStateOf<Artifact?>(null) }
+    val history by chatVm.history.collectAsState()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val openDrawer: () -> Unit = { scope.launch { drawerState.open() } }
@@ -61,27 +64,34 @@ fun AppScaffold(
                         }
                     }
                     Spacer(Modifier.height(16.dp))
-                    Button(onClick = { chatVm.onAccountSwitched(); screen = AppScreen.CHAT; closeDrawer() }) {
+                    Button(onClick = { chatVm.startNewChat(); screen = AppScreen.CHAT; closeDrawer() }) {
                         Text("+ Новый чат")
                     }
                     Spacer(Modifier.height(16.dp))
                     Text("Проект ▾", style = MaterialTheme.typography.titleSmall)
-                    TextButton(onClick = {}) { Text("Новый проект") }
+                    TextButton(onClick = { screen = AppScreen.PROJECTS; closeDrawer() }) { Text("Проекты") }
+                    TextButton(onClick = { screen = AppScreen.PLUGINS; closeDrawer() }) { Text("Плагины и модули") }
+                    TextButton(onClick = { screen = AppScreen.TASKS; closeDrawer() }) { Text("Запланированные задачи") }
                     Spacer(Modifier.height(8.dp))
                     Text("История чатов", style = MaterialTheme.typography.titleSmall)
-                    Text(
-                        "В фазе 1 история — текущий чат активного аккаунта. Полная история с поиском — фаза 2.",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(Modifier.weight(1f))
+                    val myHistory = history.filter { it.accountId == (activeAccount?.id ?: "") }
+                    if (myHistory.isEmpty()) {
+                        Text("История пуста — начни чат, и он появится здесь после нового чата.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    } else {
+                        LazyColumn(Modifier.weight(1f, fill = false)) {
+                            items(myHistory) { entry ->
+                                TextButton(onClick = { chatVm.loadHistory(entry); screen = AppScreen.CHAT; closeDrawer() }) {
+                                    Text(entry.title)
+                                }
+                            }
+                        }
+                    }
+                    Spacer(Modifier.height(8.dp))
                     Divider()
                     Text("Аккаунты", style = MaterialTheme.typography.titleSmall)
-                    LazyColumn(Modifier.weight(1f, fill = false)) {
-                        items(accounts) { acc ->
-                            TextButton(onClick = { onSwitchAccount(acc.id); closeDrawer() }) {
-                                Text((if (acc.isActive) "● " else "") + acc.displayName)
-                            }
+                    accounts.forEach { acc ->
+                        TextButton(onClick = { onSwitchAccount(acc.id); closeDrawer() }) {
+                            Text((if (acc.isActive) "● " else "") + acc.displayName)
                         }
                     }
                     TextButton(onClick = onAddAccount) { Text("+ Добавить аккаунт") }
@@ -100,7 +110,18 @@ fun AppScaffold(
                 onNewChat = { screen = AppScreen.CHAT },
                 onQuickAction = { screen = AppScreen.CHAT }
             )
-            AppScreen.CHAT -> ChatScreen(viewModel = chatVm, activeAccount = activeAccount, onOpenDrawer = openDrawer)
+            AppScreen.CHAT -> ChatScreen(
+                viewModel = chatVm,
+                activeAccount = activeAccount,
+                onOpenDrawer = openDrawer,
+                onArtifactClick = { art -> openArtifact = art; screen = AppScreen.ARTIFACT }
+            )
+            AppScreen.ARTIFACT -> openArtifact?.let { art ->
+                ArtifactScreen(artifact = art, onBack = { screen = AppScreen.CHAT })
+            } ?: ChatScreen(viewModel = chatVm, activeAccount = activeAccount, onOpenDrawer = openDrawer, onArtifactClick = {})
+            AppScreen.PROJECTS -> ProjectsScreen(vm = workspaceVm, onBack = { screen = AppScreen.HOME }, onOpenChat = { screen = AppScreen.CHAT })
+            AppScreen.PLUGINS -> PluginsScreen(vm = workspaceVm, onBack = { screen = AppScreen.HOME })
+            AppScreen.TASKS -> TasksScreen(vm = workspaceVm, onBack = { screen = AppScreen.HOME })
             AppScreen.SETTINGS -> SettingsScreen(
                 accounts = accounts,
                 activeAccount = activeAccount,

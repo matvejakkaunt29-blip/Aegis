@@ -10,23 +10,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.musemobile.app.auth.MuseAccount
+import com.musemobile.app.chat.Artifact
 import com.musemobile.app.chat.ChatViewModel
 
 /**
- * Экран чата, фаза 1. Ответы ассистента — без пузырей, обычным
- * текстом (как в разобранном интерфейсе), сообщения пользователя —
- * в тёмной карточке справа. Поле ввода — та же пилюля, что на главном.
- * Переключение аккаунтов — из drawer, а не из диалога поверх чата:
- * у каждого аккаунта свой чат, при переключении список очищается
- * (см. ChatViewModel.onAccountSwitched).
+ * Экран чата, фазы 1-2. Ответы ассистента — без пузырей, сообщения
+ * пользователя — в карточке справа. Над полем ввода — агентные шаги,
+ * под ответом — карточки артефактов, если они были сгенерированы.
  */
 @Composable
 fun ChatScreen(
     viewModel: ChatViewModel,
     activeAccount: MuseAccount?,
-    onOpenDrawer: () -> Unit
+    onOpenDrawer: () -> Unit,
+    onArtifactClick: (Artifact) -> Unit
 ) {
     val messages by viewModel.messages.collectAsState()
+    val steps by viewModel.steps.collectAsState()
+    val artifacts by viewModel.artifacts.collectAsState()
     var input by remember { mutableStateOf("") }
 
     Column(Modifier.fillMaxSize()) {
@@ -40,7 +41,7 @@ fun ChatScreen(
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.weight(1f)
             )
-            TextButton(onClick = { viewModel.onAccountSwitched() }) { Text("+ Новый чат") }
+            TextButton(onClick = { viewModel.startNewChat() }) { Text("+ Новый чат") }
         }
         Divider(color = MaterialTheme.colorScheme.outline)
         LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp)) {
@@ -57,7 +58,11 @@ fun ChatScreen(
                     Text(msg.text, Modifier.fillMaxWidth().padding(vertical = 10.dp))
                 }
             }
+            items(artifacts) { art ->
+                ArtifactCard(artifact = art, onClick = { onArtifactClick(art) })
+            }
         }
+        AgentStepsRow(steps = steps)
         Box(Modifier.padding(16.dp)) {
             ChatInputBar(
                 value = input,

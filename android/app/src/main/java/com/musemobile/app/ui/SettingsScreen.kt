@@ -65,7 +65,7 @@ fun SettingsScreen(
                 SettingRow("Справочный центр", "")
                 SettingRow("Отправить отзыв", "")
                 SettingRow("О Muse", "")
-                SettingRow("Проверить обновления", "Версия 0.2.0-phase1")
+                SettingRow("Проверить обновления", "Версия 0.3.0-phase2-3")
             }
             Spacer(Modifier.height(16.dp))
             Button(
