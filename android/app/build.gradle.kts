@@ -10,8 +10,8 @@ android {
         applicationId = "com.musemobile.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "0.1.0-skeleton"
+        versionCode = 3
+        versionName = "0.3.0-phase2-3"
     }
     buildFeatures { compose = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.7.8" }

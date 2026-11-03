@@ -34,10 +34,34 @@ Muse — встроенный провайдер по умолчанию, вхо
 Примечание: `docs/design-mockup.html` в локальной копии — старый HTML-макет v6,
 он в этот пуш не входит и заменён реальными Compose-экранами фазы 1.
 
+## Сборка APK
+
+### На GitHub (работает уже сейчас)
+В репозитории есть `.github/workflows/android.yml`: при пуше в ветку
+`muse-mobile` GitHub Actions собирает debug APK и кладёт его в
+Actions → Artifacts под именем `muse-mobile-debug-apk`.
+Там же гоняются unit-тесты (`:app:testDebugUnitTest`).
+Это и есть «тестить APK прямо на GitHub»: ничего локально ставить не надо,
+скачиваешь готовый APK из артефакта workflow.
+
+### Локально (SDK уже установлен на этой VM)
+- Android SDK: `~/workspace/tools/android-sdk/` — cmdline-tools, platform
+  34 (ext12), build-tools 34.0.0, platform-tools
+- Gradle 8.7: `~/workspace/tools/gradle-8.7/`, JDK 17: `~/workspace/tools/jdk-17.0.21+9/`
+- Сборка: `source ~/workspace/tools/android-sdk/env.sh && cd android && gradle :app:assembleDebug`
+- APK после сборки: `android/app/build/outputs/apk/debug/app-debug.apk`
+- Важно: локальная сборка упирается в разрешение Muse на прямые
+  TCP-соединения для Java (Gradle-демон общается по localhost-сокету).
+  Пока в настройках Muse → Permissions → Direct network protocols
+  `other_tcp` стоит Deny, локальный Gradle падает с
+  «Could not receive a message from the daemon». Как только Ethan
+  переключит `other_tcp` в Ask и подтвердит, локальная сборка заработает —
+  SDK, Gradle и JDK для неё уже на месте.
+
 ## Чего ещё нет (честно)
 - Реальный HTTP-запрос к API Muse — в `MuseProvider` заглушка, нужен официальный endpoint.
-- Сборка APK здесь не запускалась: Android SDK на этой VM нет (JDK 21 есть).
-  Сборка: открыть `android/` в Android Studio, Sync Gradle, Run / Build APK.
+- Локальный APK пока не собран по причине выше (разрешение other_tcp),
+  но GitHub Actions собирает его при каждом пуше.
 
 ## Следующие шаги
 1. Подключить реальный endpoint Muse и вход через браузер (шаги и артефакты тогда придут из стрима, а не из симуляции).
