@@ -3,63 +3,67 @@ package com.musemobile.app.ui
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.musemobile.app.auth.MuseAccount
 import com.musemobile.app.chat.ChatViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+/**
+ * Экран чата, фаза 1. Ответы ассистента — без пузырей, обычным
+ * текстом (как в разобранном интерфейсе), сообщения пользователя —
+ * в тёмной карточке справа. Поле ввода — та же пилюля, что на главном.
+ * Переключение аккаунтов — из drawer, а не из диалога поверх чата:
+ * у каждого аккаунта свой чат, при переключении список очищается
+ * (см. ChatViewModel.onAccountSwitched).
+ */
 @Composable
 fun ChatScreen(
     viewModel: ChatViewModel,
-    accounts: List<MuseAccount>,
     activeAccount: MuseAccount?,
-    onSwitchAccount: (String) -> Unit,
-    onAddAccount: () -> Unit,
-    onLogoutAccount: (String) -> Unit
+    onOpenDrawer: () -> Unit
 ) {
     val messages by viewModel.messages.collectAsState()
     var input by remember { mutableStateOf("") }
-    var showAccounts by remember { mutableStateOf(false) }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Muse • ${activeAccount?.displayName ?: ""}") },
-                actions = { TextButton(onClick = { showAccounts = true }) { Text("Аккаунты ▾") } })
-        },
-        bottomBar = {
-            Row(Modifier.fillMaxWidth().padding(12.dp)) {
-                OutlinedTextField(value = input, onValueChange = { input = it },
-                    modifier = Modifier.weight(1f), placeholder = { Text("Написать Muse…") })
-                Spacer(Modifier.width(8.dp))
-                Button(onClick = { if (input.isNotBlank()) { viewModel.send(input); input = "" } }) { Text("↑") }
-            }
+    Column(Modifier.fillMaxSize()) {
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TextButton(onClick = onOpenDrawer) { Text("☰") }
+            Text(
+                "Muse • ${activeAccount?.displayName ?: ""}",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.weight(1f)
+            )
+            TextButton(onClick = { viewModel.onAccountSwitched() }) { Text("+ Новый чат") }
         }
-    ) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding)) {
+        Divider(color = MaterialTheme.colorScheme.outline)
+        LazyColumn(Modifier.weight(1f).padding(horizontal = 16.dp)) {
             items(messages) { msg ->
-                Card(Modifier.fillMaxWidth().padding(8.dp)) {
-                    Text(msg.text, Modifier.padding(12.dp))
+                if (msg.role == "user") {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                        Surface(
+                            shape = RoundedCornerShape(20.dp),
+                            color = MaterialTheme.colorScheme.surface,
+                            modifier = Modifier.padding(vertical = 6.dp)
+                        ) { Text(msg.text, Modifier.padding(12.dp)) }
+                    }
+                } else {
+                    Text(msg.text, Modifier.fillMaxWidth().padding(vertical = 10.dp))
                 }
             }
         }
-        if (showAccounts) {
-            AlertDialog(onDismissRequest = { showAccounts = false },
-                title = { Text("Аккаунты") },
-                text = {
-                    Column {
-                        accounts.forEach { acc ->
-                            TextButton(onClick = { onSwitchAccount(acc.id); showAccounts = false }) {
-                                Text((if (acc.isActive) "● " else "") + acc.displayName + " — " + acc.email)
-                            }
-                        }
-                        TextButton(onClick = onAddAccount) { Text("+ Добавить аккаунт") }
-                        activeAccount?.let { TextButton(onClick = { onLogoutAccount(it.id); showAccounts = false }) { Text("Выйти из этого аккаунта") } }
-                    }
-                },
-                confirmButton = { TextButton(onClick = { showAccounts = false }) { Text("Закрыть") } })
+        Box(Modifier.padding(16.dp)) {
+            ChatInputBar(
+                value = input,
+                onValueChange = { input = it },
+                onSend = { if (input.isNotBlank()) { viewModel.send(input); input = "" } }
+            )
         }
     }
 }
